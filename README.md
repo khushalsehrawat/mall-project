@@ -1,4 +1,4 @@
-# Mall of America — Interactive Sales Deck
+# Mall of America - Interactive Sales Deck
 
 A premium, single-page interactive sales presentation for Mall of America, built as a static web experience. The project is designed to communicate leasing, sponsorship, dining, entertainment, and event opportunities through cinematic media, editorial storytelling, and lightweight interactive modules.
 
@@ -33,9 +33,9 @@ It uses a **narrative-driven, single-page structure** to guide stakeholders thro
 
 * **HTML5** — semantic structure
 * **CSS3** — custom properties, gradients, responsive layouts
-* **JavaScript (Vanilla)** — UI logic and interactivity
-* **Bootstrap 5.3.3** — layout/grid utilities
-* **GSAP 3.12.5** — animations and counters
+* **JavaScript** — UI logic and interactivity
+* **Bootstrap 5** — layout/grid utilities
+* **GSAP** — animations and counters
 * **Google Fonts** — `Montserrat`, `Playfair Display`
 * **Browser APIs** — `IntersectionObserver`, `requestAnimationFrame`, `requestIdleCallback`
 
@@ -130,7 +130,6 @@ http://localhost:8080
 * Single entry point: `index.html`
 * Centralized styling: `assets/css/styles.css`
 * Centralized logic: `assets/js/app.js`
-* CDN-based dependencies (no build pipeline)
 * Some assets sourced from public Mall of America media
 
 ---
