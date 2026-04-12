@@ -192,16 +192,11 @@ No build step required.
 * Core implementation remains **pure HTML/CSS/JS**
 
 ---
+## 🔗 Live Demo
 
-## Suggested Improvements
+(https://khushalsehrawat.github.io/mall-project/)
 
-* Localize third-party dependencies
-* Optimize media assets (images/videos)
-* Add favicon and social metadata
-* Separate content from markup for scalability
-* Add testing or validation workflows
 
----
 
 ## Author
 
