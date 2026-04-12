@@ -1,6 +1,8 @@
 # Mall of America - Interactive Sales Deck
 
-A premium, single-page interactive sales presentation for Mall of America, built as a static web experience. The project is designed to communicate leasing, sponsorship, dining, entertainment, and event opportunities through cinematic media, editorial storytelling, and lightweight interactive modules.
+A cinematic, video-first interactive sales deck built to present a large-scale retail destination as a commercial opportunity.
+
+Single-page interactive sales presentation for Mall of America, built as a static web experience. The project is designed to communicate leasing, sponsorship, dining, entertainment, and event opportunities through cinematic media, editorial storytelling, and lightweight interactive modules.
 
 ---
 
@@ -180,10 +182,6 @@ No build step required.
 * Content structured for **leasing, sponsorship, and event storytelling**
 
 ---
-
-## AI Tools Used
-
-* OpenAI Codex / GPT-5 for documentation support
 
 ### Scope
 
