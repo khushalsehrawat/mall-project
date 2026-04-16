@@ -63,22 +63,28 @@ const venueData = {
 
 document.addEventListener("DOMContentLoaded", () => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mobileLayoutQuery = window.matchMedia("(max-width: 767px)");
 
   const menuTrigger = document.querySelector("[data-menu-toggle]");
   const navLinks = document.querySelector(".nav-links");
   const header = document.querySelector(".deck-header");
+  const deckFooter = document.querySelector(".deck-footer");
   const progressBar = document.querySelector(".scroll-progress");
-  const navAnchors = document.querySelectorAll(".nav-links a, .section-rail a");
+  const deck = document.querySelector("[data-deck]");
+  const deckTrack = document.querySelector("[data-deck-track]");
+  const introGate = document.querySelector("[data-intro-gate]");
+  const enterButtons = document.querySelectorAll("[data-enter-deck], [data-enter-deck-secondary]");
+  const navAnchors = document.querySelectorAll(".nav-links a, .section-rail a, .deck-footer__nav a");
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
-  const sections = document.querySelectorAll("section[id]");
+  const slides = Array.from(
+    deckTrack?.querySelectorAll("section[id]") || deck?.querySelectorAll("section[id]") || document.querySelectorAll("section[id]")
+  );
   const heroVideo = document.querySelector(".hero-video");
   if (heroVideo) {
-  heroVideo.muted = true;
-  heroVideo.defaultMuted = true;
-  heroVideo.playsInline = true;
-}
-  const entertainmentVideo = document.querySelector(".entertainment-card__media video");
-  const eventVideo = document.querySelector(".event-stage video");
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.playsInline = true;
+  }
   const moduleVideo = document.querySelector(".module-hero video");
   const slider = document.querySelector("[data-dining-slider]");
   const prevButton = document.querySelector("[data-slider-prev]");
@@ -95,14 +101,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const detailSquareFeet = document.querySelector("[data-detail-squarefeet]");
   const detailList = document.querySelector("[data-detail-list]");
   const detailMetrics = document.querySelector("[data-detail-metrics]");
-  const railDots = document.querySelectorAll(".section-rail a");
-  const counters = document.querySelectorAll("[data-count-to]");
-  const inlineVideos = [heroVideo].filter(Boolean);
-  const sectionVideos = [entertainmentVideo, eventVideo].filter(Boolean);
   const revealTargets = document.querySelectorAll(
-  ".section-heading, .kpi-card, .section-surface, .retail-panel__card, .luxury-layout, .dining-card, .entertainment-card, .event-panel, .opportunity-card"
+    ".section-heading, .section-surface, .why-visual, .kpi-card, .retail-panel__card, .luxury-layout, .dining-card, .entertainment-card, .event-panel, .opportunity-card"
   );
   const loopAnimations = [];
+  const animatedCounters = new WeakSet();
+  let activeIndex = Math.max(
+    slides.findIndex((slide) => `#${slide.id}` === window.location.hash),
+    0
+  );
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let isScrollLocked = false;
+  let unlockTimer = 0;
+  let hasQueuedMotion = false;
+  let fitFrame = 0;
 
   const safePlay = (media) => {
     if (!media) return;
@@ -117,21 +130,31 @@ document.addEventListener("DOMContentLoaded", () => {
     media.pause?.();
   };
 
-  const syncInlineVideos = () => {
-    const pageVisible = document.visibilityState !== "hidden";
-    inlineVideos.forEach((video) => {
-      const inView = video.dataset.inView === "true";
-      if (pageVisible && inView) {
-        safePlay(video);
-        return;
-      }
+  const isMobileLayout = () => mobileLayoutQuery.matches;
+  const hasEnteredDeck = () => document.body.classList.contains("is-entered");
+  const isModuleOpen = () => module?.classList.contains("is-open");
 
-      pauseMedia(video);
-    });
+  const syncChromeMetrics = () => {
+    const headerHeight = Math.ceil(header?.offsetHeight || 128);
+    const footerVisible = deckFooter && window.getComputedStyle(deckFooter).display !== "none";
+    const footerHeight = footerVisible ? Math.ceil((deckFooter?.offsetHeight || 0) + 32) : 28;
+
+    document.documentElement.style.setProperty("--header-height", `${headerHeight}px`);
+    document.documentElement.style.setProperty("--deck-footer-space", `${footerHeight}px`);
+  };
+
+  const updateDeckUI = () => {
+    const isSolid = hasEnteredDeck() && activeIndex > 0;
+    const progress = slides.length > 1 ? activeIndex / (slides.length - 1) : 0;
+
+    header?.classList.toggle("is-solid", isSolid);
+    if (progressBar) {
+      progressBar.style.setProperty("--scroll-progress", progress.toFixed(3));
+    }
   };
 
   const syncModuleVideo = () => {
-    const shouldPlay = document.visibilityState !== "hidden" && module?.classList.contains("is-open");
+    const shouldPlay = document.visibilityState !== "hidden" && isModuleOpen();
     if (shouldPlay) {
       safePlay(moduleVideo);
       return;
@@ -140,64 +163,91 @@ document.addEventListener("DOMContentLoaded", () => {
     pauseMedia(moduleVideo);
   };
 
-  safePlay(heroVideo);
-  sectionVideos.forEach((video) => pauseMedia(video));
+  const syncSlideMedia = () => {
+    const pageVisible = document.visibilityState !== "hidden";
 
-  if (inlineVideos.length) {
-    const mediaObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.target.dataset.inView = entry.isIntersecting ? "true" : "false";
-        });
+    slides.forEach((slide, index) => {
+      const shouldPlay = pageVisible && hasEnteredDeck() && !isModuleOpen() && index === activeIndex;
+      slide.querySelectorAll("video").forEach((video) => {
+        if (shouldPlay) {
+          safePlay(video);
+          return;
+        }
 
-        syncInlineVideos();
-      },
-      {
-        rootMargin: "180px 0px",
-        threshold: 0.2
-      }
-    );
+        pauseMedia(video);
+      });
+    });
 
-    inlineVideos.forEach((video) => mediaObserver.observe(video));
-  }
+    syncModuleVideo();
+  };
 
   document.addEventListener("visibilitychange", () => {
-    syncInlineVideos();
-    syncModuleVideo();
+    syncSlideMedia();
   });
 
   menuTrigger?.addEventListener("click", () => {
     navLinks?.classList.toggle("is-open");
   });
 
-  anchorLinks.forEach((anchor) => {
-    anchor.addEventListener("click", () => {
-      navLinks?.classList.remove("is-open");
-    });
-  });
+  syncChromeMetrics();
 
   const setActiveNav = (id) => {
     navAnchors.forEach((anchor) => {
-      anchor.classList.toggle("is-active", anchor.getAttribute("href") === `#${id}`);
-    });
-
-    railDots.forEach((anchor) => {
-      anchor.classList.toggle("is-active", anchor.getAttribute("href") === `#${id}`);
+      const isActive = anchor.getAttribute("href") === `#${id}`;
+      anchor.classList.toggle("is-active", isActive);
+      anchor.toggleAttribute("aria-current", isActive);
     });
   };
 
-  const sectionObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveNav(entry.target.id);
-        }
-      });
-    },
-    { threshold: 0.45 }
-  );
+  const getSlideShell = (slide) =>
+    slide?.querySelector(slide.classList.contains("hero") ? ".hero-content" : ".section-shell");
 
-  sections.forEach((section) => sectionObserver.observe(section));
+  const scrollMobileToSlide = (slide, behavior = prefersReducedMotion ? "auto" : "smooth") => {
+    if (!deck || !slide) return;
+    const resolvedBehavior = isMobileLayout() ? "auto" : behavior;
+
+    deck.scrollTo({
+      top: Math.max(slide.offsetTop, 0),
+      behavior: resolvedBehavior
+    });
+  };
+
+  const syncMobileActiveSection = ({ replaceHistory = false } = {}) => {
+    if (!isMobileLayout() || !slides.length) return;
+
+    const chromeOffset = Math.ceil(header?.offsetHeight || 0);
+    const marker = chromeOffset + Math.max((window.innerHeight - chromeOffset) * 0.35, 120);
+    let nextIndex = activeIndex;
+
+    slides.forEach((slide, index) => {
+      const rect = slide.getBoundingClientRect();
+      if (rect.top <= marker && rect.bottom >= marker) {
+        nextIndex = index;
+      }
+    });
+
+    activeIndex = nextIndex;
+
+    slides.forEach((slide, index) => {
+      slide.classList.toggle("is-active", index === activeIndex);
+      slide.setAttribute("aria-hidden", "false");
+    });
+
+    const currentSlide = slides[activeIndex];
+    if (!currentSlide) return;
+
+    setActiveNav(currentSlide.dataset.navTarget || currentSlide.id);
+    updateDeckUI();
+    revealSlide(currentSlide);
+    syncSlideMedia();
+
+    if (replaceHistory) {
+      const hash = `#${currentSlide.id}`;
+      if (window.location.hash !== hash) {
+        window.history.replaceState(null, "", hash);
+      }
+    }
+  };
 
   const renderVenue = (key) => {
     const venue = venueData[key];
@@ -236,22 +286,19 @@ document.addEventListener("DOMContentLoaded", () => {
     module?.classList.add("is-open");
     document.body.classList.add("module-open");
     module?.setAttribute("aria-hidden", "false");
-    syncModuleVideo();
+    syncSlideMedia();
   };
 
   const closeModule = () => {
     module?.classList.remove("is-open");
     document.body.classList.remove("module-open");
     module?.setAttribute("aria-hidden", "true");
-    syncModuleVideo();
+    syncSlideMedia();
   };
 
   moduleButtons.forEach((button) => button.addEventListener("click", openModule));
   closeModuleButton?.addEventListener("click", closeModule);
   moduleBackdrop?.addEventListener("click", closeModule);
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeModule();
-  });
 
   const sliderStep = () => {
     const card = slider?.querySelector(".dining-card");
@@ -268,13 +315,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const animateCounter = (counter) => {
+    if (animatedCounters.has(counter)) return;
+
     const target = Number(counter.dataset.countTo || 0);
     const suffix = counter.dataset.suffix || "";
     const prefix = counter.dataset.prefix || "";
     const duration = Number(counter.dataset.duration || 1.6);
+    const decimals = Number.isInteger(target) ? 0 : 1;
+    const formatValue = (value) => `${prefix}${value.toFixed(decimals).replace(/\.0$/, "")}${suffix}`;
+
+    animatedCounters.add(counter);
 
     if (prefersReducedMotion || !window.gsap || Number.isNaN(target)) {
-      counter.textContent = `${prefix}${target}${suffix}`;
+      counter.textContent = formatValue(target);
       return;
     }
 
@@ -284,106 +337,349 @@ document.addEventListener("DOMContentLoaded", () => {
       duration,
       ease: "power2.out",
       onUpdate: () => {
-        counter.textContent = `${prefix}${Math.round(state.value)}${suffix}`;
+        counter.textContent = formatValue(state.value);
       }
     });
   };
 
-  const counterObserver = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        animateCounter(entry.target);
-        obs.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.55 }
-  );
+  const revealSlide = (slide) => {
+    if (!slide) return;
 
-  counters.forEach((counter) => counterObserver.observe(counter));
+    slide.querySelectorAll(".reveal-item").forEach((item, index) => {
+      if (item.classList.contains("is-visible")) return;
 
-  let tickingScroll = false;
-  let lastProgress = -1;
-  let lastHeaderSolid = false;
+      if (prefersReducedMotion) {
+        item.classList.add("is-visible");
+        return;
+      }
 
-  const updateScrollUI = () => {
-    const scrollY = window.scrollY || window.pageYOffset || 0;
-    const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-    const progress = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
-    const isSolid = scrollY > 24;
+      window.setTimeout(() => {
+        item.classList.add("is-visible");
+      }, Math.min(index * 45, 260));
+    });
+    slide.querySelectorAll("[data-count-to]").forEach(animateCounter);
+  };
 
-    if (isSolid !== lastHeaderSolid) {
-      header?.classList.toggle("is-solid", isSolid);
-      lastHeaderSolid = isSolid;
+  const moveTrack = (behavior = prefersReducedMotion ? "auto" : "smooth") => {
+    if (!deckTrack || !deck) return;
+    if (isMobileLayout()) {
+      deckTrack.style.removeProperty("transform");
+      deckTrack.classList.remove("is-instant");
+      return;
     }
 
-    if (progressBar && Math.abs(progress - lastProgress) > 0.005) {
-      progressBar.style.setProperty("--scroll-progress", progress.toFixed(2));
-      lastProgress = progress;
+    const offset = -(activeIndex * deck.clientWidth);
+    const shouldJump = behavior === "auto" || prefersReducedMotion;
+
+    deckTrack.classList.toggle("is-instant", shouldJump);
+    deckTrack.style.transform = `translate3d(${offset}px, 0, 0)`;
+
+    if (shouldJump) {
+      window.requestAnimationFrame(() => {
+        deckTrack.classList.remove("is-instant");
+      });
     }
   };
 
-  const handleScroll = () => {
-    if (tickingScroll) return;
+  const fitSlides = () => {
+    slides.forEach((slide) => {
+      slide.classList.remove("is-compact", "is-tight", "is-packed");
+      slide.classList.remove("is-scaled");
+      slide.style.removeProperty("--slide-fit-scale");
+    });
 
-    tickingScroll = true;
-    window.requestAnimationFrame(() => {
-      updateScrollUI();
-      tickingScroll = false;
+    if (isMobileLayout()) {
+      slides.forEach((slide) => {
+        const shell = getSlideShell(slide);
+        if (!shell) return;
+
+        ["is-compact", "is-tight", "is-packed"].forEach((fitClass) => {
+          if (shell.scrollHeight <= shell.clientHeight + 8) return;
+          slide.classList.add(fitClass);
+        });
+
+        const overflow = shell.scrollHeight - shell.clientHeight;
+        if (overflow <= 8) return;
+
+        const availableHeight = Math.max(shell.clientHeight - 10, 1);
+        const scale = Math.max(0.82, Math.min(1, availableHeight / shell.scrollHeight));
+        if (scale < 0.995) {
+          slide.style.setProperty("--slide-fit-scale", scale.toFixed(3));
+          slide.classList.add("is-scaled");
+        }
+      });
+
+      moveTrack("auto");
+      return;
+    }
+
+    slides.forEach((slide) => {
+      ["is-compact", "is-tight", "is-packed"].forEach((fitClass) => {
+        if (slide.scrollHeight <= slide.clientHeight + 8) return;
+        slide.classList.add(fitClass);
+      });
+
+      const overflow = slide.scrollHeight - slide.clientHeight;
+      if (overflow > 8) {
+        const isShortViewport = window.innerHeight <= 820;
+        const isVeryShortViewport = window.innerHeight <= 760;
+        const isPrioritySlide = ["why", "retail", "luxury", "dining"].includes(slide.id);
+        let scale = Math.min(1, (slide.clientHeight - 12) / slide.scrollHeight);
+
+        if (window.innerWidth <= 767) {
+          if (slide.id === "retail") scale -= 0.09;
+          if (slide.id === "events") scale -= 0.08;
+        }
+
+        if (isShortViewport && isPrioritySlide) {
+          scale -= 0.04;
+        }
+
+        if (isVeryShortViewport && isPrioritySlide) {
+          scale -= 0.03;
+        }
+
+        const minimumScale = isVeryShortViewport ? 0.7 : isShortViewport ? 0.74 : 0.8;
+        scale = Math.max(minimumScale, scale);
+        if (scale < 0.999) {
+          slide.style.setProperty("--slide-fit-scale", scale.toFixed(3));
+          slide.classList.add("is-scaled");
+        }
+      }
+    });
+
+    moveTrack("auto");
+  };
+
+  const scheduleFit = () => {
+    window.cancelAnimationFrame(fitFrame);
+    fitFrame = window.requestAnimationFrame(() => {
+      fitFrame = 0;
+      fitSlides();
+      if (isMobileLayout()) {
+        syncMobileActiveSection();
+      }
     });
   };
 
-  const headerOffset = () => (header?.offsetHeight || 0) + 16;
+  const setSlideState = (
+    nextIndex,
+    { replaceHistory = true, behavior = prefersReducedMotion ? "auto" : "smooth" } = {}
+  ) => {
+    const clampedIndex = Math.max(0, Math.min(nextIndex, slides.length - 1));
+    const targetSlide = slides[clampedIndex];
+    if (!targetSlide) return;
 
-  const scrollToTarget = (hash) => {
-    if (!hash || hash === "#") return;
+    activeIndex = clampedIndex;
+    if (isMobileLayout()) {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle("is-active", index === clampedIndex);
+        slide.setAttribute("aria-hidden", "false");
+      });
 
-    const target = document.querySelector(hash);
-    if (!target) return;
+      const navTarget = targetSlide.dataset.navTarget || targetSlide.id;
+      setActiveNav(navTarget);
+      updateDeckUI();
+      revealSlide(targetSlide);
+      syncSlideMedia();
 
-    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset();
-    window.scrollTo({ top, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      if (replaceHistory) {
+        const hash = `#${targetSlide.id}`;
+        if (window.location.hash !== hash) {
+          window.history.replaceState(null, "", hash);
+        }
+      }
+      return;
+    }
+
+    slides.forEach((slide, index) => {
+      slide.classList.toggle("is-active", index === clampedIndex);
+      slide.toggleAttribute("aria-hidden", index !== clampedIndex);
+    });
+
+    const navTarget = targetSlide.dataset.navTarget || targetSlide.id;
+    setActiveNav(navTarget);
+    updateDeckUI();
+    revealSlide(targetSlide);
+    syncSlideMedia();
+    moveTrack(behavior);
+
+    if (replaceHistory) {
+      const hash = `#${targetSlide.id}`;
+      if (window.location.hash !== hash) {
+        window.history.replaceState(null, "", hash);
+      }
+    }
+  };
+
+  const goToSlide = (
+    nextIndex,
+    {
+      behavior = prefersReducedMotion ? "auto" : "smooth",
+      replaceHistory = true,
+      lock = true,
+      allowWhileGated = false,
+      force = false
+    } = {}
+  ) => {
+    if (!slides.length || !deckTrack || isModuleOpen() || (!hasEnteredDeck() && !allowWhileGated)) return;
+
+    const clampedIndex = Math.max(0, Math.min(nextIndex, slides.length - 1));
+    if (isMobileLayout()) {
+      setSlideState(clampedIndex, { replaceHistory, behavior });
+      scrollMobileToSlide(slides[clampedIndex], behavior);
+      return;
+    }
+
+    if (clampedIndex === activeIndex && !force) {
+      moveTrack(behavior);
+      updateDeckUI();
+      return;
+    }
+
+    window.clearTimeout(unlockTimer);
+    if (lock && !prefersReducedMotion) {
+      isScrollLocked = true;
+      unlockTimer = window.setTimeout(() => {
+        isScrollLocked = false;
+      }, 620);
+    } else {
+      isScrollLocked = false;
+    }
+
+    setSlideState(clampedIndex, { replaceHistory, behavior });
+  };
+
+  const goToHash = (hash, options) => {
+    if (!hash || hash === "#" || hash === "#0") return false;
+
+    const nextIndex = slides.findIndex((slide) => `#${slide.id}` === hash);
+    if (nextIndex === -1) return false;
+
+    goToSlide(nextIndex, options);
+    return true;
   };
 
   anchorLinks.forEach((anchor) => {
     anchor.addEventListener("click", (event) => {
-      const hash = anchor.getAttribute("href");
-      if (!hash || hash === "#" || hash === "#0") return;
+      navLinks?.classList.remove("is-open");
 
-      const target = document.querySelector(hash);
-      if (!target) return;
+      const hash = anchor.getAttribute("href");
+      if (!goToHash(hash)) return;
 
       event.preventDefault();
-      scrollToTarget(hash);
     });
   });
 
-  updateScrollUI();
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  window.addEventListener("resize", handleScroll);
+  window.addEventListener(
+    "wheel",
+    (event) => {
+      if (isMobileLayout() || !hasEnteredDeck() || isModuleOpen()) return;
+
+      const primaryDelta =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+      if (Math.abs(primaryDelta) < 24) return;
+
+      event.preventDefault();
+      if (isScrollLocked) return;
+
+      goToSlide(activeIndex + Math.sign(primaryDelta));
+    },
+    { passive: false }
+  );
+
+  window.addEventListener(
+    "touchstart",
+    (event) => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "touchend",
+    (event) => {
+      if (isMobileLayout() || !hasEnteredDeck() || isModuleOpen() || isScrollLocked) return;
+
+      const touch = event.changedTouches[0];
+      const deltaX = touchStartX - touch.clientX;
+      const deltaY = touchStartY - touch.clientY;
+      const primaryDelta = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY;
+
+      if (Math.abs(primaryDelta) < 56) return;
+
+      goToSlide(activeIndex + Math.sign(primaryDelta));
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("hashchange", () => {
+    const nextIndex = slides.findIndex((slide) => `#${slide.id}` === window.location.hash);
+    if (nextIndex === -1 || nextIndex === activeIndex) return;
+
+    if (isMobileLayout()) {
+      setSlideState(nextIndex, { replaceHistory: false, behavior: "auto" });
+      scrollMobileToSlide(slides[nextIndex], "auto");
+      return;
+    }
+
+    if (!hasEnteredDeck()) {
+      setSlideState(nextIndex, { replaceHistory: false, behavior: "auto" });
+      return;
+    }
+
+    goToSlide(nextIndex, { replaceHistory: false, lock: false });
+  });
+
+  window.addEventListener("resize", () => {
+    syncChromeMetrics();
+    scheduleFit();
+    moveTrack("auto");
+    updateDeckUI();
+    syncMobileActiveSection();
+  });
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      syncMobileActiveSection();
+    },
+    { passive: true }
+  );
+
+  deck?.addEventListener(
+    "scroll",
+    () => {
+      syncMobileActiveSection();
+    },
+    { passive: true }
+  );
+
+  slides.forEach((slide) => {
+    slide.querySelectorAll("img").forEach((image) => {
+      image.addEventListener("load", scheduleFit, { passive: true });
+    });
+
+    slide.querySelectorAll("video").forEach((video) => {
+      video.addEventListener("loadedmetadata", scheduleFit, { passive: true });
+      video.addEventListener("loadeddata", scheduleFit, { passive: true });
+    });
+  });
+
+  mobileLayoutQuery.addEventListener?.("change", () => {
+    syncChromeMetrics();
+    scheduleFit();
+    moveTrack("auto");
+    syncMobileActiveSection({ replaceHistory: false });
+  });
 
   revealTargets.forEach((item) => item.classList.add("reveal-item"));
 
   if (prefersReducedMotion) {
     revealTargets.forEach((item) => item.classList.add("is-visible"));
-    return;
   }
-
-  const revealObserver = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        obs.unobserve(entry.target);
-      });
-    },
-    {
-      rootMargin: "0px 0px -10% 0px",
-      threshold: 0.12
-    }
-  );
-
-  revealTargets.forEach((item) => revealObserver.observe(item));
 
   const startMotion = () => {
     if (prefersReducedMotion || !window.gsap) {
@@ -439,6 +735,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const queueMotion = () => {
+    if (hasQueuedMotion) return;
+    hasQueuedMotion = true;
+
     const runMotion = () => {
       if ("requestIdleCallback" in window) {
         window.requestIdleCallback(startMotion, { timeout: 450 });
@@ -456,5 +755,88 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("load", runMotion, { once: true });
   };
 
-  queueMotion();
+  window.addEventListener("orientationchange", () => {
+    syncChromeMetrics();
+    scheduleFit();
+  });
+
+  document.fonts?.ready?.then(() => {
+    syncChromeMetrics();
+    scheduleFit();
+  });
+
+  document.querySelectorAll("img").forEach((image) => {
+    if (image.complete) return;
+    image.addEventListener("load", scheduleFit, { once: true });
+    image.addEventListener("error", scheduleFit, { once: true });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!hasEnteredDeck() && event.key !== "Escape") return;
+
+    if (event.key === "Escape") {
+      closeModule();
+      return;
+    }
+
+    if (isModuleOpen()) return;
+
+    const target = event.target;
+    const tagName = target?.tagName;
+    const isTypingTarget =
+      target?.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(tagName);
+    if (isTypingTarget) return;
+
+    if (
+      event.key === "ArrowRight" ||
+      event.key === "ArrowDown" ||
+      event.key === "PageDown" ||
+      event.key === " "
+    ) {
+      event.preventDefault();
+      goToSlide(activeIndex + 1);
+    }
+
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp" || event.key === "PageUp") {
+      event.preventDefault();
+      goToSlide(activeIndex - 1);
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      goToSlide(0);
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      goToSlide(slides.length - 1);
+    }
+  });
+
+  setSlideState(activeIndex, { replaceHistory: false, behavior: "auto" });
+  scheduleFit();
+  syncMobileActiveSection();
+  if (hasEnteredDeck()) {
+    queueMotion();
+  } else {
+    updateDeckUI();
+    syncSlideMedia();
+  }
+
+  enterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (hasEnteredDeck()) return;
+
+      document.body.classList.remove("is-gated");
+      document.body.classList.add("is-entered");
+      introGate?.classList.add("is-dismissed");
+      syncChromeMetrics();
+      setSlideState(activeIndex, {
+        replaceHistory: false,
+        behavior: prefersReducedMotion ? "auto" : "smooth"
+      });
+      scheduleFit();
+      queueMotion();
+    });
+  });
 });
