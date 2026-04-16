@@ -27,9 +27,39 @@
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
-  <body>
+  <body class="is-gated">
     <div class="page-shell">
       <div class="scroll-progress" aria-hidden="true"></div>
+      <section class="intro-gate" aria-label="Mall of America intro" data-intro-gate>
+        <div class="intro-gate__media">
+          <video
+            class="intro-gate__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="https://mallofamerica.com/sites/default/files/2024-12/Leasing_Images_Hero.jpg"
+          >
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>
+          <div class="intro-gate__glow"></div>
+        </div>
+        <div class="intro-gate__overlay"></div>
+        <div class="intro-gate__content">
+          <div class="intro-gate__copy">
+            <span class="intro-gate__eyebrow">Mall of America | Destination Deck</span>
+            <h1>Step inside the most electric retail destination in America.</h1>
+            <p>
+              Lights, movement, brands, attractions, dining, and event energy all in one living commercial stage.
+            </p>
+            <div class="intro-gate__actions">
+              <button class="btn-pill btn-pill--gold" type="button" data-enter-deck>Step Into The Spectacle</button>
+              <button class="btn-pill btn-pill--ghost" type="button" data-enter-deck-secondary>Unlock The Opportunity Deck</button>
+            </div>
+          </div>
+        </div>
+      </section>
       <header class="deck-header">
         <div class="deck-nav">
           <a class="brand-lockup" href="#hero" aria-label="Go to hero section">
@@ -39,15 +69,11 @@
           <nav class="nav-links" aria-label="Primary">
             <a href="#why">Why This Property</a>
             <a href="#retail">Retail Power</a>
-            <a href="#luxury">Luxury</a>
-            <a href="#dining">Dining</a>
-            <a href="#entertainment">Entertainment</a>
-            <a href="#events">Events</a>
             <a href="#opportunities">Opportunities</a>
           </nav>
 
           <div class="header-actions">
-            <button class="btn-pill btn-pill--ghost" type="button" data-open-module style="background-color: #e9c685fa; color: #101010;">Open Events Module</button>
+            <button class="btn-pill btn-pill--ghost" type="button" data-open-module style="background-color: #e9c685fa; color: #101010;">Launch Event Atlas</button>
             <button class="menu-trigger" type="button" data-menu-toggle aria-label="Toggle navigation">
               <span></span>
               <span></span>
@@ -58,18 +84,19 @@
       </header>
 
       <div class="section-rail" aria-label="Section progress">
-        <a href="#hero" class="is-active" aria-label="Hero"></a>
-        <a href="#why" aria-label="Why This Property"></a>
-        <a href="#retail" aria-label="Retail"></a>
-        <a href="#luxury" aria-label="Luxury"></a>
-        <a href="#dining" aria-label="Dining"></a>
-        <a href="#entertainment" aria-label="Entertainment"></a>
-        <a href="#events" aria-label="Events"></a>
-        <a href="#opportunities" aria-label="Opportunities"></a>
+        <a href="#hero" class="is-active" aria-label="Hero" title="Hero"></a>
+        <a href="#why" aria-label="Why This Property" title="Why This Property"></a>
+        <a href="#retail" aria-label="Retail Power" title="Retail Power"></a>
+        <a href="#luxury" aria-label="Luxury" title="Luxury"></a>
+        <a href="#dining" aria-label="Dining & Lifestyle" title="Dining & Lifestyle"></a>
+        <a href="#entertainment" aria-label="Entertainment" title="Entertainment"></a>
+        <a href="#events" aria-label="events" title="events"></a>
+        <a href="#opportunities" aria-label="opportunities" title="opportunities"></a>
       </div>
 
-      <main>
-        <section class="hero" id="hero">
+      <main class="deck-main" data-deck>
+        <div class="deck-track" data-deck-track>
+        <section class="hero" id="hero" data-slide-label="Overview">
           <div class="hero-media">
             <video
               class="hero-video"
@@ -95,37 +122,36 @@
                   <span class="eyebrow">Bloomington, Minnesota | Adjacent to MSP Airport</span>
                   <h1>North America's biggest retail stage.</h1>
                   <p class="hero-statement">
-                    Mall of America is not a mall. It is a self-renewing destination engine where retail, dining,
-                    attractions, events, and brand activations compound into year-round demand.
+                    Mall of America is a destination engine where retail, dining, attractions, and events compound
+                    into year-round demand.
                   </p>
                   <div class="hero-business-line">
-                    One property. 32 million annual visits. Leasing, sponsorship, and event inventory built to move
-                    brands from awareness to action.
+                      32M annual visits. One destination built for leasing, events, and brand visibility.
                   </div>
                   <div class="hero-actions">
-                    <a class="btn-pill btn-pill--gold" href="#opportunities">Explore Commercial Paths</a>
+                    <a class="btn-pill btn-pill--gold" href="#opportunities">Explore The Opportunity Deck</a>
                     <button class="btn-pill btn-pill--ghost" type="button" data-open-module>
-                      Open Events Module
+                      Open The Event Atlas
                     </button>
                   </div>
 
-                  <div class="hero-stats">
+                  <!-- <div class="hero-stats">
                     <div class="stat-chip">
                       <small>Annual Visits</small>
                       <strong data-count-to="32" data-suffix="M">0</strong>
-                      <span>Visitors from around the world every year.</span>
+                      <span>Global annual traffic.</span>
                     </div>
                     <div class="stat-chip">
                       <small>Destination Scale</small>
                       <strong data-count-to="5.6" data-suffix="M" data-duration="1.8">5.6M</strong>
-                      <span>Square feet of retail, dining, and entertainment.</span>
+                      <span>Sq ft of mixed-use energy.</span>
                     </div>
                     <div class="stat-chip">
                       <small>Economic Impact</small>
                       <strong data-count-to="3" data-prefix="$" data-suffix="B">0</strong>
-                      <span>Generated for Minnesota each year.</span>
+                      <span>Annual state impact.</span>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -134,45 +160,22 @@
                   <div class="hero-float hero-float--top">
                     <div class="metric-card">
                       <small>Immediate Advantage</small>
-                      <strong>#1 Retail Center Experience</strong>
+                      <strong>National retail gravity.</strong>
                       <p>
-                        Leasing language at MOA is already framed around national leadership, not local convenience.
+                        The property already sells scale, relevance, and destination-level energy before a store even opens.
                       </p>
                     </div>
                     <div class="metric-grid">
                       <div class="metric-card">
                         <small>Retail + Dining</small>
                         <strong>520</strong>
-                        <span>World-class stores and restaurants.</span>
+                        <span>Stores and restaurants.</span>
                       </div>
                       <div class="metric-card">
-                        <small>Hotels Nearby</small>
-                        <strong>50+</strong>
-                        <span>Within ten minutes of the property.</span>
+                        <small>Reach</small>
+                        <strong>32M+</strong>
+                        <span>Annual guests exposure</span>
                       </div>
-                    </div>
-                  </div>
-
-                  <div class="hero-float hero-float--mid">
-                    <div class="metric-card">
-                      <small>Events Engine</small>
-                      <strong>300+</strong>
-                      <p>Concerts, celebrity appearances, fashion, family programming, and sponsor moments.</p>
-                    </div>
-                  </div>
-
-                  <div class="hero-float hero-float--bottom">
-                    <div class="metric-line">
-                      <span>First-to-market launches</span>
-                      <strong>170+</strong>
-                    </div>
-                    <div class="metric-line">
-                      <span>Nearly iconic stores</span>
-                      <strong>500</strong>
-                    </div>
-                    <div class="metric-line">
-                      <span>Nickelodeon Universe rides</span>
-                      <strong>30+</strong>
                     </div>
                   </div>
                 </div>
@@ -181,58 +184,69 @@
           </div>
         </section>
 
-        <section class="section-block fade-section" id="why">
+        <section class="section-block fade-section" id="why" data-slide-label="Why This Property">
           <div class="section-shell">
             <div class="section-heading">
               <span class="sub-kicker">Why This Property</span>
               <h2>The audience is already here. The platform is already proven.</h2>
               <p>
-                The job is not to create demand from scratch. Mall of America gives partners a property with national
-                scale, tourism pull, airport adjacency, and an event cadence that keeps the destination commercially
-                alive far beyond pure shopping trips.
+                National reach, airport adjacency, and year-round destination behavior — already built in.
               </p>
             </div>
 
-            <div class="section-surface">
-              <div class="why-grid">
-                <article class="kpi-card">
-                  <div class="kpi-icon">01</div>
-                  <small>Reach</small>
-                  <strong>32M</strong>
-                  <p>Annual guests create brand exposure at a level most regional centers cannot approach.</p>
-                </article>
-                <article class="kpi-card">
-                  <div class="kpi-icon">02</div>
-                  <small>Access</small>
-                  <strong>MSP Next Door</strong>
-                  <p>Minutes from downtown Minneapolis and St. Paul, with MSP International Airport directly adjacent.</p>
-                </article>
-                <article class="kpi-card">
-                  <div class="kpi-icon">03</div>
-                  <small>Stay Power</small>
-                  <strong>50+ Hotels</strong>
-                  <p>Overnight demand layers onto local traffic and extends the commercial window for partners.</p>
-                </article>
-                <article class="kpi-card">
-                  <div class="kpi-icon">04</div>
-                  <small>Momentum</small>
-                  <strong>$1B+</strong>
-                  <p>Official leasing materials position the property around more than $1 billion in sales.</p>
-                </article>
+            <div class="why-layout">
+              <div class="section-surface">
+                <div class="why-grid">
+                  <article class="kpi-card">
+                    <div class="kpi-icon">01</div>
+                    <small>Reach</small>
+                    <strong>32M</strong>
+                    <p>Annual guests exposure at a level most regional centers cannot approach.</p>
+                  </article>
+                  <article class="kpi-card">
+                    <div class="kpi-icon">02</div>
+                    <small>Access</small>
+                    <strong>MSP Next Door</strong>
+                    <p>International Airport directly adjacent.</p>
+                  </article>
+                  <article class="kpi-card">
+                    <div class="kpi-icon">03</div>
+                    <small>Stay Power</small>
+                    <strong>50+ Hotels</strong>
+                    <p>Overnight demand layers onto local traffic and extends the commercial window for partners.</p>
+                  </article>
+                  <article class="kpi-card">
+                    <div class="kpi-icon">04</div>
+                    <small>Momentum</small>
+                    <strong>$1B+</strong>
+                    <p>The property around more than $1 billion in sales.</p>
+                  </article>
+                </div>
               </div>
+
+              <figure class="why-visual">
+                <img
+                  src="assets/img/sponsor.jpg"
+                  alt="Mall of America brand activation and guest traffic"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption class="why-visual__copy">
+                  <strong>One section, one message, one visual frame.</strong>
+                  <!-- <p>A destination platform already built for visibility, traffic, and conversion.</p> -->
+                </figcaption>
+              </figure>
             </div>
           </div>
         </section>
 
-        <section class="section-block fade-section" id="retail">
+        <section class="section-block fade-section" id="retail" data-slide-label="Retail Power">
           <div class="section-shell">
             <div class="section-heading">
               <span class="sub-kicker">Retail Power</span>
               <h2>A leasing story built on velocity, visibility, and destination behavior.</h2>
               <p>
-                Mall of America is designed to make brands feel inevitable. Massive footfall, tourism traffic, and an
-                experiential environment give flagship retail, emerging concepts, and pop-up formats a stronger
-                commercial narrative than standalone real estate ever could.
+                MOA gives brands more than traffic. It gives them tourism pull and entertainment energy
               </p>
             </div>
 
@@ -281,13 +295,12 @@
                   <small>Retail Thesis</small>
                   <strong>Destination demand makes every category stronger.</strong>
                   <p>
-                    From trendy Gen Z pop-ups to contemporary brands like Aritzia and everyday luxury at Nordstrom
-                    Boutiques, Mall of America positions brands inside an immersive environment where the property does
-                    part of the selling before the storefront even begins.
+                      Destination demand makes every category stronger.
+
                   </p>
                 </div>
 
-                <div class="logo-marquee" aria-label="Representative brand mix">
+                <!-- <div class="logo-marquee" aria-label="Representative brand mix">
                   <div class="logo-track">
                     <span class="logo-pill">Apple</span>
                     <span class="logo-pill">Aritzia</span>
@@ -302,7 +315,7 @@
                     <span class="logo-pill">Nike</span>
                     <span class="logo-pill">LEGO</span>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="metric-grid">
                   <div class="metric-card">
@@ -319,80 +332,93 @@
               </div>
             </div>
           </div>
+        </section>
 
-          <div class="retail-motion">
-            <div class="retail-motion__inner">
-              <div class="retail-motion__track">
-                <div class="retail-panel">
-                  <div class="retail-panel__card">
-                    <small>01 | Traffic Quality</small>
-                    <h3>More than foot traffic. Qualified intent.</h3>
-                    <p>
-                      MOA's audience arrives to spend a full day. Shopping trips overlap with attractions, dining,
-                      special events, and travel itineraries, which lengthens dwell time and expands cross-category
-                      discovery.
-                    </p>
-                    <div class="panel-metrics">
-                      <div class="metric-card">
-                        <small>Annual visits</small>
-                        <strong>32M</strong>
-                      </div>
-                      <div class="metric-card">
-                        <small>Stores + restaurants</small>
-                        <strong>520</strong>
-                      </div>
-                      <div class="metric-card">
-                        <small>Sales story</small>
-                        <strong>$1B+</strong>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="retail-panel">
-                  <div class="retail-panel__card">
-                    <small>02 | Brand Positioning</small>
-                    <h3>Retail wrapped in entertainment energy.</h3>
-                    <p>
-                      The property behaves like a modern mixed-use destination. Attractions and events create
-                      visit-driving moments that standalone retail cannot easily manufacture for itself.
-                    </p>
-                    <div class="panel-metrics">
-                      <div class="metric-card">
-                        <small>Events every year</small>
-                        <strong>300+</strong>
-                      </div>
-                      <div class="metric-card">
-                        <small>Rides + attractions</small>
-                        <strong>30+</strong>
-                      </div>
-                      <div class="metric-card">
-                        <small>Dining options</small>
-                        <strong>45+</strong>
+        <section
+          class="section-block section-block--secondary fade-section"
+          id="retail-proof"
+          data-slide-label="Retail Proof"
+          data-nav-target="retail"
+        >
+          <div class="section-shell">
+            <div class="section-heading">
+              <span class="sub-kicker">Retail Proof</span>
+              <h2>Three proof points that make the leasing story close faster.</h2>
+              <p>
+                Traffic quality, entertainment energy, and flexible formats reinforce the same pitch: brands arrive
+                inside a place that already sells the visit.
+              </p>
+            </div>
+
+            <div class="retail-motion">
+              <div class="retail-motion__inner">
+                <div class="retail-motion__track">
+                  <div class="retail-panel">
+                    <div class="retail-panel__card">
+                      <small>01 | Traffic Quality</small>
+                      <h3>High traffic. High intent.</h3>
+                      <p>
+                          Full-day visits increase dwell time and cross-category discovery.
+                      </p>
+                      <div class="panel-metrics">
+                        <div class="metric-card">
+                          <small>Annual visits</small>
+                          <strong>32M</strong>
+                        </div>
+                        <div class="metric-card">
+                          <small>Stores + restaurants</small>
+                          <strong>520</strong>
+                        </div>
+                        <div class="metric-card">
+                          <small>Sales story</small>
+                          <strong>$1B+</strong>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="retail-panel">
-                  <div class="retail-panel__card">
-                    <small>03 | Deal Narrative</small>
-                    <h3>Ideal for flagship, pop-up, and category-defining concepts.</h3>
-                    <p>
-                      Whether the objective is a long-term lease, a product launch, or a seasonal activation, MOA
-                      offers a stronger story to tell investors, marketers, and executive teams: scale, relevance, and
-                      constant visibility.
-                    </p>
-                    <div class="panel-metrics">
-                      <div class="metric-card">
-                        <small>Retail center ranking</small>
-                        <strong>#1</strong>
+                  <div class="retail-panel">
+                    <div class="retail-panel__card">
+                      <small>02 | Brand Positioning</small>
+                      <h3>Retail powered by entertainment.</h3>
+                      <p>
+  Entertainment creates energy that traditional retail cannot generate alone.
+</p>
+                      <div class="panel-metrics">
+                        <div class="metric-card">
+                          <small>Events every year</small>
+                          <strong>300+</strong>
+                        </div>
+                        <div class="metric-card">
+                          <small>Rides + attractions</small>
+                          <strong>30+</strong>
+                        </div>
+                        <div class="metric-card">
+                          <small>Dining options</small>
+                          <strong>45+</strong>
+                        </div>
                       </div>
-                      <div class="metric-card">
-                        <small>Destination status</small>
-                        <strong>National</strong>
-                      </div>
-                      <div class="metric-card">
-                        <small>Commercial fit</small>
-                        <strong>Flexible</strong>
+                    </div>
+                  </div>
+                  <div class="retail-panel">
+                    <div class="retail-panel__card">
+                      <small>03 | Deal Narrative</small>
+                      <h3>Built for flagship, launch, and pop-up formats.</h3>
+                      <p>
+  Built for flagship, launch, and high-visibility formats.
+</p>
+                      <div class="panel-metrics">
+                        <div class="metric-card">
+                          <small>Retail center ranking</small>
+                          <strong>#1</strong>
+                        </div>
+                        <div class="metric-card">
+                          <small>Market reach</small>
+                          <strong>National</strong>
+                        </div>
+                        <div class="metric-card">
+                          <small>Best fit</small>
+                          <strong>Flexible</strong>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -402,15 +428,14 @@
           </div>
         </section>
 
-        <section class="section-block luxury-section fade-section" id="luxury">
+        <section class="section-block luxury-section fade-section" id="luxury" data-slide-label="Luxury">
           <div class="section-shell">
             <div class="section-heading">
               <span class="sub-kicker">Luxury</span>
               <h2>Mass reach without losing premium context.</h2>
               <p>
-                The strongest luxury environments feel selective even when traffic is enormous. Mall of America gives
-                premium brands a place inside a globally recognized destination while preserving the visual drama, brand
-                adjacency, and hospitality cues that higher-end audiences expect.
+                Mall of America gives premium brands destination-scale visibility without losing selectivity,
+                visual drama, or hospitality cues.
               </p>
             </div>
 
@@ -430,27 +455,26 @@
                   <small>Luxury Positioning</small>
                   <h3>For brands that need visibility and a halo effect.</h3>
                   <p>
-                    The property's scale creates relevance; the merchandising mix creates credibility. Luxury lives best
-                    here when it is presented as part of a larger cultural destination, not just a row of stores.
+                    Scale creates relevance. The merchandising mix creates credibility and context.
                   </p>
                 </div>
 
                 <div class="luxury-highlights">
                   <div class="highlight-chip">
                     <strong>Arrival</strong>
-                    <span>Airport adjacency turns travel traffic into spontaneous high-value touchpoints.</span>
+                    <span>Airport access brings high-value traffic into the mix.</span>
                   </div>
-                  <div class="highlight-chip">
+                  <!-- <div class="highlight-chip">
                     <strong>Context</strong>
-                    <span>Premium retail is amplified by hospitality, attractions, and day-long dwell time.</span>
-                  </div>
-                  <div class="highlight-chip">
+                    <span>Hospitality and attractions add premium context around the storefront.</span>
+                  </div> -->
+                  <!-- <div class="highlight-chip">
                     <strong>Visibility</strong>
-                    <span>Brand moments can exist both inside a storefront and across the broader property platform.</span>
-                  </div>
+                    <span>Brand moments can extend beyond the storefront into the wider property.</span>
+                  </div> -->
                   <div class="highlight-chip">
                     <strong>Flexibility</strong>
-                    <span>Works for boutiques, capsule launches, collaborations, and executive-hosted events.</span>
+                    <span>Works for boutiques, capsule launches, and hosted events.</span>
                   </div>
                 </div>
 
@@ -458,12 +482,12 @@
                   <div class="metric-card">
                     <small>Best fit</small>
                     <strong>Flagship + capsule</strong>
-                    <span>Premium storytelling spaces supported by destination-level traffic.</span>
+                    <!-- <span>Premium storytelling with destination-level traffic.</span> -->
                   </div>
                   <div class="metric-card">
                     <small>Partner type</small>
                     <strong>Fashion, beauty, jewelry</strong>
-                    <span>Categories that benefit from both aspiration and discovery.</span>
+                    <!-- <span>Categories that benefit from both aspiration and discovery.</span> -->
                   </div>
                 </div>
               </div>
@@ -471,14 +495,13 @@
           </div>
         </section>
 
-        <section class="section-block fade-section" id="dining">
+        <section class="section-block fade-section" id="dining" data-slide-label="Dining & Lifestyle">
           <div class="section-shell">
             <div class="section-heading">
               <span class="sub-kicker">Dining & Lifestyle</span>
               <h2>Food is part of the destination behavior, not an afterthought.</h2>
               <p>
-                Mall of America's food offer plays a strategic role in dwell time and social energy. It keeps guests on
-                property longer, gives sponsors hospitality inventory, and helps event programming feel fuller and more
+                Dining extends dwell time, supports hospitality, and helps the destination feel social, active, and
                 premium.
               </p>
             </div>
@@ -510,8 +533,8 @@
                     </div>
                     <h3>Fueling longer stays.</h3>
                     <p>
-                      Dining keeps the property active from first stop to last stop and turns shopping trips into
-                      full-day itineraries.
+                      Dining keeps the property active from first stop to last stop and turns visits into fuller
+                      itineraries.
                     </p>
                   </div>
                 </article>
@@ -532,8 +555,8 @@
                     </div>
                     <h3>Built-in sponsor hospitality.</h3>
                     <p>
-                      Partner activations become stronger when sampling, hosting, private dinners, and after-events can
-                      sit naturally inside the same property ecosystem.
+                      Partner activations get stronger when hosting, sampling, and after-events fit naturally into the
+                      same ecosystem.
                     </p>
                   </div>
                 </article>
@@ -554,8 +577,8 @@
                     </div>
                     <h3>Dining that expands the brand moment.</h3>
                     <p>
-                      The most successful destination partners do not end at the storefront. They extend into meals,
-                      meetups, and social-first experiences that feel native to the visit.
+                      The strongest destination partners extend into meals, meetups, and social-first experiences that
+                      feel native to the visit.
                     </p>
                   </div>
                 </article>
@@ -564,16 +587,14 @@
           </div>
         </section>
 
-        <section class="section-block fade-section" id="entertainment">
+        <section class="section-block fade-section" id="entertainment" data-slide-label="Entertainment">
           <div class="section-shell">
             <div class="section-heading">
               <span class="sub-kicker">Attractions & Entertainment</span>
               <h2>The difference-maker: reasons to visit that no normal mall can replicate.</h2>
-              <p>
-                Attractions are not side content. They are core demand generators. At MOA, entertainment gives retail
-                partners a constant stream of incremental traffic and gives event partners a property that already
-                understands spectacle.
-              </p>
+              <!-- <p>
+                Attractions are not side content. They are core demand generators that keep the destination in motion.
+              </p> -->
             </div>
 
             <div class="entertainment-grid">
@@ -589,8 +610,7 @@
                 <div class="entertainment-card__body">
                   <h3>Nickelodeon Universe</h3>
                   <p>
-                    A 7-acre indoor theme park that transforms the property into a true destination, not just a shopping
-                    center.
+                    A 7-acre indoor theme park that makes the property a destination, not just a mall.
                   </p>
                   <div class="entertainment-facts">
                     <span><strong>Scale</strong>7 acres</span>
@@ -611,8 +631,7 @@
                 <div class="entertainment-card__body">
                   <h3>All-day attraction stack</h3>
                   <p>
-                    SEA LIFE, FlyOver America, Crayola Experience, mini golf, cinema, and immersive play spaces keep
-                    foot traffic diversified and fresh.
+                    A layered attraction mix keeps traffic diversified and fresh.
                   </p>
                   <div class="entertainment-facts">
                     <span><strong>Formats</strong>Family to adult</span>
@@ -633,8 +652,7 @@
                 <div class="entertainment-card__body">
                   <h3>Entertainment as media</h3>
                   <p>
-                    The property is visually rich enough to create sponsor-ready content, influencer moments, and
-                    audience participation without building a venue from zero.
+                    The property naturally creates sponsor-ready content and audience participation.
                   </p>
                   <div class="entertainment-facts">
                     <span><strong>Content</strong>High-share scenes</span>
@@ -646,15 +664,14 @@
           </div>
         </section>
 
-        <section class="section-block fade-section" id="events">
+        <section class="section-block fade-section" id="events" data-slide-label="Events Platform">
           <div class="section-shell">
             <div class="section-heading">
               <span class="sub-kicker">Events Platform</span>
               <h2>More than a venue. A live, sponsorable, bookable platform.</h2>
               <p>
-                Official partnership messaging makes the promise explicit: Mall of America can host your event, plug
-                your brand into existing programming, or design a custom activation that turns the property into a live
-                business engine.
+                MOA can host your event, plug brands into existing programming, or build custom activations that turn
+                the property into a live business engine.
               </p>
             </div>
 
@@ -670,8 +687,8 @@
                   <small>Events at MOA</small>
                   <h3>Concerts, launches, competitions, conventions, and celebrity moments.</h3>
                   <p>
-                    The commercial upside is not only ticketing or venue rental. It is also the halo effect created for
-                    stores, sponsors, F&amp;B partners, and the wider destination.
+                    The upside is not only ticketing or rental. It is the halo effect created for stores, sponsors,
+                    F&amp;B partners, and the wider destination.
                   </p>
                   <div class="hero-actions">
                     <button class="btn-pill btn-pill--gold" type="button" data-open-module>
@@ -687,8 +704,7 @@
                   <h3>Hosting at MOA made easy.</h3>
                   <ul>
                     <li>Private event spaces plus meeting facilities accommodating groups of 15 to 700.</li>
-                    <li>Theme park buyouts, conventions, receptions, corporate meetings, and youth group programming.</li>
-                    <li>Corporate partnership inventory spanning signage, digital media, and on-site activations.</li>
+                    <li>Theme park buyouts, conventions, receptions, corporate meetings, and youth programming.</li>
                   </ul>
                 </div>
 
@@ -710,27 +726,19 @@
                   </div>
                 </div>
 
-                <div class="event-panel">
-                  <small>How Partners Win</small>
-                  <ul>
-                    <li>Launch products in a high-traffic public environment and convert attention into social reach.</li>
-                    <li>Use MOA's event calendar to attach brands to existing demand instead of inventing attendance.</li>
-                    <li>Offer talent, clients, and VIPs one destination for programming, dining, and hospitality.</li>
-                  </ul>
-                </div>
+              
               </div>
             </div>
           </div>
         </section>
 
-        <section class="section-block fade-section" id="opportunities">
+        <section class="section-block fade-section" id="opportunities" data-slide-label="Opportunities">
           <div class="section-shell">
             <div class="section-heading">
               <span class="sub-kicker">Opportunities</span>
               <h2>Three clear ways to convert attention into business.</h2>
               <p>
-                Every commercial path at Mall of America should feel simple to understand and easy to advance. This deck
-                is built to move prospects toward the next conversation, not just impress them visually.
+                Three commercial paths make the next conversation easy to advance.
               </p>
             </div>
 
@@ -739,8 +747,7 @@
                 <small>Leasing</small>
                 <h3>Open a retail presence.</h3>
                 <p>
-                  For flagship stores, category leaders, and high-visibility pop-ups that benefit from tourism, events,
-                  and prolonged dwell time.
+                  For flagships, category leaders, and high-visibility pop-ups.
                 </p>
                 <ul>
                   <li>Nearly 500 iconic stores in the current merchandising story</li>
@@ -756,8 +763,7 @@
                 <small>Sponsorship</small>
                 <h3>Own attention across the property.</h3>
                 <p>
-                  Activate through digital signage, physical signage, integrated programs, experiential builds, and
-                  event-linked content opportunities.
+                  Activate through signage, integrated programs, experiences, and event-linked content.
                 </p>
                 <ul>
                   <li>Reach 32 million annual guests with exclusive program partnerships</li>
@@ -778,8 +784,7 @@
                 <small>Events</small>
                 <h3>Book a venue inside a living destination.</h3>
                 <p>
-                  For promoters, corporate producers, agencies, and brands that want built-in traffic, premium support
-                  spaces, and venue inventory with real spectacle.
+                  For producers and brands that want built-in traffic and venue inventory with spectacle.
                 </p>
                 <ul>
                   <li>Private event spaces plus facilities for groups of 15 to 700</li>
@@ -801,6 +806,7 @@
             </div>
           </div>
         </section> -->
+        </div>
       </main>
 
       <footer class="deck-footer">
@@ -816,7 +822,7 @@
               <a href="#events">Events</a>
               <a href="#opportunities">Contact</a>
             </nav>
-            <span class="deck-footer__meta">© 2026 Mall of America</span>
+            <span class="deck-footer__meta">&copy; 2026 Mall of America</span>
           </div>
         </div>
       </footer>
