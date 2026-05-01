@@ -1,960 +1,308 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mall of America | Interactive Sales Deck</title>
-    <meta
-      name="description"
-      content="An immersive browser-based sales deck for Mall of America, built for retail leasing, sponsorship, and event partnerships."
-    />
-    <link
-      rel="preload"
-      as="image"
-      href="https://mallofamerica.com/sites/default/files/2024-12/Leasing_Images_Hero.jpg"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
-  <body class="is-gated">
-    <div class="page-shell">
-      <div class="scroll-progress" aria-hidden="true"></div>
-      <section class="intro-gate" aria-label="Mall of America intro" data-intro-gate>
-        <div class="intro-gate__media">
-          <video
-            class="intro-gate__video"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            poster="https://mallofamerica.com/sites/default/files/2024-12/Leasing_Images_Hero.jpg"
-          >
-            <source src="assets/video/hero.mp4" type="video/mp4" />
-          </video>
-          <div class="intro-gate__glow"></div>
-        </div>
-        <div class="intro-gate__overlay"></div>
-        <div class="intro-gate__content">
-          <div class="intro-gate__copy">
-            <span class="intro-gate__eyebrow">Mall of America | Destination Deck</span>
-            <h1>Step inside the most electric retail destination in America.</h1>
-            <p>
-              Lights, movement, brands, attractions, dining, and event energy all in one living commercial stage.
-            </p>
-            <div class="intro-gate__actions">
-              <button class="btn-pill btn-pill--gold" type="button" data-enter-deck>Step Into The Spectacle</button>
-              <button class="btn-pill btn-pill--ghost" type="button" data-enter-deck-secondary>Unlock The Opportunity Deck</button>
-            </div>
-          </div>
-        </div>
-      </section>
-      <header class="deck-header">
-        <div class="deck-nav">
-          <a class="brand-lockup" href="#hero" aria-label="Go to hero section">
-            <img class="brand-mark" src="assets/img/logo-2.png" style="height: fit-content;" alt="Mall of America logo" />
-          </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mall of America | Interactive Destination Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <!-- GSAP for High-End Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
 
-          <nav class="nav-links" aria-label="Primary">
-            <a href="#why">Why This Property</a>
-            <a href="#retail">Retail Power</a>
-            <a href="#opportunities">Opportunities</a>
-          </nav>
-
-          <div class="header-actions">
-            <button class="btn-pill btn-pill--ghost" type="button" data-open-module style="background-color: #e9c685fa; color: #101010;">Launch Event Atlas</button>
-            <button class="menu-trigger" type="button" data-menu-toggle aria-label="Toggle navigation">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <div class="section-rail" aria-label="Section progress">
-        <a href="#hero" class="is-active" aria-label="Hero" title="Hero"></a>
-        <a href="#why" aria-label="Why This Property" title="Why This Property"></a>
-        <a href="#retail" aria-label="Retail Power" title="Retail Power"></a>
-        <a href="#luxury" aria-label="Luxury" title="Luxury"></a>
-        <a href="#dining" aria-label="Dining & Lifestyle" title="Dining & Lifestyle"></a>
-        <a href="#entertainment" aria-label="Entertainment" title="Entertainment"></a>
-        <a href="#events" aria-label="events" title="events"></a>
-        <a href="#opportunities" aria-label="opportunities" title="opportunities"></a>
-      </div>
-
-      <main class="deck-main" data-deck>
-        <div class="deck-track" data-deck-track>
-        <section class="hero" id="hero" data-slide-label="Overview">
-          <div class="hero-media">
-            <video
-              class="hero-video"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              poster="https://mallofamerica.com/sites/default/files/2024-12/Leasing_Images_Hero.jpg"
-            >
-              <source
-                src="assets/video/hero.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
-          <div class="hero-overlay"></div>
-          
-          <div class="section-shell hero-content">
-            <div class="row align-items-center g-4">
-              <div class="col-lg-7">
-                <div class="hero-copy">
-                  <span class="eyebrow">Bloomington, Minnesota | Adjacent to MSP Airport</span>
-                  <h1>North America's biggest retail stage.</h1>
-                  <p class="hero-statement">
-                    Mall of America is a destination engine where retail, dining, attractions, and events compound
-                    into year-round demand.
-                  </p>
-                  <div class="hero-business-line">
-                      32M annual visits. One destination built for leasing, events, and brand visibility.
-                  </div>
-                  <div class="hero-actions">
-                    <a class="btn-pill btn-pill--gold" href="#opportunities">Explore The Opportunity Deck</a>
-                    <button class="btn-pill btn-pill--ghost" type="button" data-open-module>
-                      Open The Event Atlas
-                    </button>
-                  </div>
-
-                  <!-- <div class="hero-stats">
-                    <div class="stat-chip">
-                      <small>Annual Visits</small>
-                      <strong data-count-to="32" data-suffix="M">0</strong>
-                      <span>Global annual traffic.</span>
-                    </div>
-                    <div class="stat-chip">
-                      <small>Destination Scale</small>
-                      <strong data-count-to="5.6" data-suffix="M" data-duration="1.8">5.6M</strong>
-                      <span>Sq ft of mixed-use energy.</span>
-                    </div>
-                    <div class="stat-chip">
-                      <small>Economic Impact</small>
-                      <strong data-count-to="3" data-prefix="$" data-suffix="B">0</strong>
-                      <span>Annual state impact.</span>
-                    </div>
-                  </div> -->
-                </div>
-              </div>
-
-              <div class="col-lg-5">
-                <div class="hero-side">
-                  <div class="hero-float hero-float--top">
-                    <div class="metric-card">
-                      <small>Immediate Advantage</small>
-                      <strong>National retail gravity.</strong>
-                      <p>
-                        The property already sells scale, relevance, and destination-level energy before a store even opens.
-                      </p>
-                    </div>
-                    <div class="metric-grid">
-                      <div class="metric-card">
-                        <small>Retail + Dining</small>
-                        <strong>520</strong>
-                        <span>Stores and restaurants.</span>
-                      </div>
-                      <div class="metric-card">
-                        <small>Reach</small>
-                        <strong>32M+</strong>
-                        <span>Annual guests exposure</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block fade-section" id="why" data-slide-label="Why This Property">
-          <div class="section-shell">
-            <div class="section-heading">
-              <span class="sub-kicker">Why This Property</span>
-              <h2>The audience is already here. The platform is already proven.</h2>
-              <p>
-                National reach, airport adjacency, and year-round destination behavior — already built in.
-              </p>
-            </div>
-
-            <div class="why-layout">
-              <div class="section-surface">
-                <div class="why-grid">
-                  <article class="kpi-card">
-                    <div class="kpi-icon">01</div>
-                    <small>Reach</small>
-                    <strong>32M</strong>
-                    <p>Annual guests exposure at a level most regional centers cannot approach.</p>
-                  </article>
-                  <article class="kpi-card">
-                    <div class="kpi-icon">02</div>
-                    <small>Access</small>
-                    <strong>MSP Next Door</strong>
-                    <p>International Airport directly adjacent.</p>
-                  </article>
-                  <article class="kpi-card">
-                    <div class="kpi-icon">03</div>
-                    <small>Stay Power</small>
-                    <strong>50+ Hotels</strong>
-                    <p>Overnight demand layers onto local traffic and extends the commercial window for partners.</p>
-                  </article>
-                  <article class="kpi-card">
-                    <div class="kpi-icon">04</div>
-                    <small>Momentum</small>
-                    <strong>$1B+</strong>
-                    <p>The property around more than $1 billion in sales.</p>
-                  </article>
-                </div>
-              </div>
-
-              <figure class="why-visual">
-                <img
-                  src="assets/img/sponsor.jpg"
-                  alt="Mall of America brand activation and guest traffic"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <figcaption class="why-visual__copy">
-                  <strong>One section, one message, one visual frame.</strong>
-                  <!-- <p>A destination platform already built for visibility, traffic, and conversion.</p> -->
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block fade-section" id="retail" data-slide-label="Retail Power">
-          <div class="section-shell">
-            <div class="section-heading">
-              <span class="sub-kicker">Retail Power</span>
-              <h2>A leasing story built on velocity, visibility, and destination behavior.</h2>
-              <p>
-                MOA gives brands more than traffic. It gives them tourism pull and entertainment energy
-              </p>
-            </div>
-
-            <div class="retail-layout">
-              <div class="retail-mosaic">
-                <figure class="retail-tile retail-tile--tall">
-                  <img
-                    src="https://mallofamerica.com/sites/default/files/2024-12/Leasing_Images_Hero.jpg"
-                    alt="Mall of America interior"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <figcaption class="tile-caption">
-                    <strong>Retail at destination scale</strong>
-                    <span>Foot traffic is amplified by tourism, entertainment, and events instead of relying on errands alone.</span>
-                  </figcaption>
-                </figure>
-                <figure class="retail-tile">
-                  <img
-                    src="https://mallofamerica.com/sites/default/files/2024-12/Leasing_Images_Shop.jpg"
-                    alt="Retail storefronts at Mall of America"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <figcaption class="tile-caption">
-                    <strong>Nearly 500 iconic stores</strong>
-                    <span>Official leasing materials frame MOA as one of America's most desirable shopping destinations.</span>
-                  </figcaption>
-                </figure>
-                <figure class="retail-tile">
-                  <img
-                    src="https://mallofamerica.com/sites/default/files/2024-12/Leasing_Images_Map.jpg"
-                    alt="Map and reach of Mall of America"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <figcaption class="tile-caption">
-                    <strong>Regional + global draw</strong>
-                    <span>Local loyalists and destination shoppers converge in one environment.</span>
-                  </figcaption>
-                </figure>
-              </div>
-
-              <div class="retail-story section-surface">
-                <div class="metric-card">
-                  <small>Retail Thesis</small>
-                  <strong>Destination demand makes every category stronger.</strong>
-                  <p>
-                      Destination demand makes every category stronger.
-
-                  </p>
-                </div>
-
-                <!-- <div class="logo-marquee" aria-label="Representative brand mix">
-                  <div class="logo-track">
-                    <span class="logo-pill">Apple</span>
-                    <span class="logo-pill">Aritzia</span>
-                    <span class="logo-pill">Nike</span>
-                    <span class="logo-pill">LEGO</span>
-                    <span class="logo-pill">L.L.Bean</span>
-                    <span class="logo-pill">Sephora</span>
-                    <span class="logo-pill">Zara</span>
-                    <span class="logo-pill">Nordstrom</span>
-                    <span class="logo-pill">Apple</span>
-                    <span class="logo-pill">Aritzia</span>
-                    <span class="logo-pill">Nike</span>
-                    <span class="logo-pill">LEGO</span>
-                  </div>
-                </div> -->
-
-                <div class="metric-grid">
-                  <div class="metric-card">
-                    <small>Launch Platform</small>
-                    <strong>170+</strong>
-                    <span>Brands have chosen MOA for first-to-market launches.</span>
-                  </div>
-                  <div class="metric-card">
-                    <small>Tax Advantage</small>
-                    <strong>No Tax</strong>
-                    <span>On clothing and shoes in Minnesota, supporting conversion.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section
-          class="section-block section-block--secondary fade-section"
-          id="retail-proof"
-          data-slide-label="Retail Proof"
-          data-nav-target="retail"
-        >
-          <div class="section-shell">
-            <div class="section-heading">
-              <span class="sub-kicker">Retail Proof</span>
-              <h2>Three proof points that make the leasing story close faster.</h2>
-              <p>
-                Traffic quality, entertainment energy, and flexible formats reinforce the same pitch: brands arrive
-                inside a place that already sells the visit.
-              </p>
-            </div>
-
-            <div class="retail-motion">
-              <div class="retail-motion__inner">
-                <div class="retail-motion__track">
-                  <div class="retail-panel">
-                    <div class="retail-panel__card">
-                      <small>01 | Traffic Quality</small>
-                      <h3>High traffic. High intent.</h3>
-                      <p>
-                          Full-day visits increase dwell time and cross-category discovery.
-                      </p>
-                      <div class="panel-metrics">
-                        <div class="metric-card">
-                          <small>Annual visits</small>
-                          <strong>32M</strong>
-                        </div>
-                        <div class="metric-card">
-                          <small>Stores + restaurants</small>
-                          <strong>520</strong>
-                        </div>
-                        <div class="metric-card">
-                          <small>Sales story</small>
-                          <strong>$1B+</strong>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="retail-panel">
-                    <div class="retail-panel__card">
-                      <small>02 | Brand Positioning</small>
-                      <h3>Retail powered by entertainment.</h3>
-                      <p>
-  Entertainment creates energy that traditional retail cannot generate alone.
-</p>
-                      <div class="panel-metrics">
-                        <div class="metric-card">
-                          <small>Events every year</small>
-                          <strong>300+</strong>
-                        </div>
-                        <div class="metric-card">
-                          <small>Rides + attractions</small>
-                          <strong>30+</strong>
-                        </div>
-                        <div class="metric-card">
-                          <small>Dining options</small>
-                          <strong>45+</strong>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="retail-panel">
-                    <div class="retail-panel__card">
-                      <small>03 | Deal Narrative</small>
-                      <h3>Built for flagship, launch, and pop-up formats.</h3>
-                      <p>
-  Built for flagship, launch, and high-visibility formats.
-</p>
-                      <div class="panel-metrics">
-                        <div class="metric-card">
-                          <small>Retail center ranking</small>
-                          <strong>#1</strong>
-                        </div>
-                        <div class="metric-card">
-                          <small>Market reach</small>
-                          <strong>National</strong>
-                        </div>
-                        <div class="metric-card">
-                          <small>Best fit</small>
-                          <strong>Flexible</strong>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block luxury-section fade-section" id="luxury" data-slide-label="Luxury">
-          <div class="section-shell">
-            <div class="section-heading">
-              <span class="sub-kicker">Luxury</span>
-              <h2>Mass reach without losing premium context.</h2>
-              <p>
-                Mall of America gives premium brands destination-scale visibility without losing selectivity,
-                visual drama, or hospitality cues.
-              </p>
-            </div>
-
-            <div class="luxury-layout">
-              <div class="luxury-gallery">
-                <div class="luxury-badge">Premium Retail Energy</div>
-                <img
-                  src="assets/img/retail-energy.jpg"
-                  alt="Premium interior image at Mall of America"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-
-              <div class="luxury-copy">
-                <div>
-                  <small>Luxury Positioning</small>
-                  <h3>For brands that need visibility and a halo effect.</h3>
-                  <p>
-                    Scale creates relevance. The merchandising mix creates credibility and context.
-                  </p>
-                </div>
-
-                <div class="luxury-highlights">
-                  <div class="highlight-chip">
-                    <strong>Arrival</strong>
-                    <span>Airport access brings high-value traffic into the mix.</span>
-                  </div>
-                  <!-- <div class="highlight-chip">
-                    <strong>Context</strong>
-                    <span>Hospitality and attractions add premium context around the storefront.</span>
-                  </div> -->
-                  <!-- <div class="highlight-chip">
-                    <strong>Visibility</strong>
-                    <span>Brand moments can extend beyond the storefront into the wider property.</span>
-                  </div> -->
-                  <div class="highlight-chip">
-                    <strong>Flexibility</strong>
-                    <span>Works for boutiques, capsule launches, and hosted events.</span>
-                  </div>
-                </div>
-
-                <div class="metric-grid">
-                  <div class="metric-card">
-                    <small>Best fit</small>
-                    <strong>Flagship + capsule</strong>
-                    <!-- <span>Premium storytelling with destination-level traffic.</span> -->
-                  </div>
-                  <div class="metric-card">
-                    <small>Partner type</small>
-                    <strong>Fashion, beauty, jewelry</strong>
-                    <!-- <span>Categories that benefit from both aspiration and discovery.</span> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block fade-section" id="dining" data-slide-label="Dining & Lifestyle">
-          <div class="section-shell">
-            <div class="section-heading">
-              <span class="sub-kicker">Dining & Lifestyle</span>
-              <h2>Food is part of the destination behavior, not an afterthought.</h2>
-              <p>
-                Dining extends dwell time, supports hospitality, and helps the destination feel social, active, and
-                premium.
-              </p>
-            </div>
-
-            <div class="dining-slider-shell">
-              <div class="dining-controls">
-                <button class="slider-control" type="button" data-slider-prev aria-label="Previous dining card">
-                  &larr;
-                </button>
-                <button class="slider-control" type="button" data-slider-next aria-label="Next dining card">
-                  &rarr;
-                </button>
-              </div>
-
-              <div class="dining-slider" data-dining-slider>
-                <article class="dining-card">
-                  <div class="dining-card__media">
-                    <img
-                      src="assets/img/fueling.jpg"
-                      alt="Dining at Mall of America"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div class="dining-card__body">
-                    <div class="dining-meta">
-                      <span class="tag">45+ eateries</span>
-                      <span class="tag">All-day demand</span>
-                    </div>
-                    <h3>Fueling longer stays.</h3>
-                    <p>
-                      Dining keeps the property active from first stop to last stop and turns visits into fuller
-                      itineraries.
-                    </p>
-                  </div>
-                </article>
-
-                <article class="dining-card">
-                  <div class="dining-card__media">
-                    <img
-                      src="assets/img/sponsor.jpg"
-                      alt="Interior lifestyle scene at Mall of America"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div class="dining-card__body">
-                    <div class="dining-meta">
-                      <span class="tag">Hospitality</span>
-                      <span class="tag">VIP hosting</span>
-                    </div>
-                    <h3>Built-in sponsor hospitality.</h3>
-                    <p>
-                      Partner activations get stronger when hosting, sampling, and after-events fit naturally into the
-                      same ecosystem.
-                    </p>
-                  </div>
-                </article>
-
-                <article class="dining-card">
-                  <div class="dining-card__media">
-                    <img
-                      src="assets/img/dining.jpg"
-                      alt="Lifestyle destination image at Mall of America"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div class="dining-card__body">
-                    <div class="dining-meta">
-                      <span class="tag">Shareable</span>
-                      <span class="tag">Social content</span>
-                    </div>
-                    <h3>Dining that expands the brand moment.</h3>
-                    <p>
-                      The strongest destination partners extend into meals, meetups, and social-first experiences that
-                      feel native to the visit.
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block fade-section" id="entertainment" data-slide-label="Entertainment">
-          <div class="section-shell">
-            <div class="section-heading">
-              <span class="sub-kicker">Attractions & Entertainment</span>
-              <h2>The difference-maker: reasons to visit that no normal mall can replicate.</h2>
-              <!-- <p>
-                Attractions are not side content. They are core demand generators that keep the destination in motion.
-              </p> -->
-            </div>
-
-            <div class="entertainment-grid">
-              <article class="entertainment-card">
-                <div class="entertainment-card__media">
-                  <img
-                    src="assets/img/Nickelodeon.jpg"
-                    alt="Nickelodeon Universe at Mall of America"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div class="entertainment-card__body">
-                  <h3>Nickelodeon Universe</h3>
-                  <p>
-                    A 7-acre indoor theme park that makes the property a destination, not just a mall.
-                  </p>
-                  <div class="entertainment-facts">
-                    <span><strong>Scale</strong>7 acres</span>
-                    <span><strong>Attractions</strong>30+ rides</span>
-                  </div>
-                </div>
-              </article>
-
-              <article class="entertainment-card">
-                <div class="entertainment-card__media">
-                  <img
-                    src="assets/img/attraction-stack.jpg"
-                    alt="SEA LIFE and attraction zone imagery"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div class="entertainment-card__body">
-                  <h3>All-day attraction stack</h3>
-                  <p>
-                    A layered attraction mix keeps traffic diversified and fresh.
-                  </p>
-                  <div class="entertainment-facts">
-                    <span><strong>Formats</strong>Family to adult</span>
-                    <span><strong>Effect</strong>Longer dwell</span>
-                  </div>
-                </div>
-              </article>
-
-              <article class="entertainment-card">
-                <div class="entertainment-card__media">
-                    <img
-                      src="assets/img/entertainment.jpg"
-                      alt="Entertainment View"
-                      loading="lazy"
-                    decoding="async"
-                    />
-                </div>
-                <div class="entertainment-card__body">
-                  <h3>Entertainment as media</h3>
-                  <p>
-                    The property naturally creates sponsor-ready content and audience participation.
-                  </p>
-                  <div class="entertainment-facts">
-                    <span><strong>Content</strong>High-share scenes</span>
-                    <span><strong>Commercial use</strong>Brand activations</span>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block fade-section" id="events" data-slide-label="Events Platform">
-          <div class="section-shell">
-            <div class="section-heading">
-              <span class="sub-kicker">Events Platform</span>
-              <h2>More than a venue. A live, sponsorable, bookable platform.</h2>
-              <p>
-                MOA can host your event, plug brands into existing programming, or build custom activations that turn
-                the property into a live business engine.
-              </p>
-            </div>
-
-            <div class="events-layout">
-              <div class="event-stage">
-                  <img
-                    src="assets/img/Concerts.jpg"
-                    alt="Events at MOA"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                <div class="event-stage__copy">
-                  <small>Events at MOA</small>
-                  <h3>Concerts, launches, competitions, conventions, and celebrity moments.</h3>
-                  <p>
-                    The upside is not only ticketing or rental. It is the halo effect created for stores, sponsors,
-                    F&amp;B partners, and the wider destination.
-                  </p>
-                  <div class="hero-actions">
-                    <button class="btn-pill btn-pill--gold" type="button" data-open-module>
-                      Dive Into Event Inventory
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="event-sidebar">
-                <div class="event-panel">
-                  <small>Event Capabilities</small>
-                  <h3>Hosting at MOA made easy.</h3>
-                  <ul>
-                    <li>Private event spaces plus meeting facilities accommodating groups of 15 to 700.</li>
-                    <li>Theme park buyouts, conventions, receptions, corporate meetings, and youth programming.</li>
-                  </ul>
-                </div>
-
-                <div class="event-stats">
-                  <div class="metric-card">
-                    <small>Parkview</small>
-                    <strong>720</strong>
-                    <span>Standing capacity.</span>
-                  </div>
-                  <div class="metric-card">
-                    <small>Executive Center</small>
-                    <strong>220</strong>
-                    <span>Theater capacity.</span>
-                  </div>
-                  <div class="metric-card">
-                    <small>The Lounge</small>
-                    <strong>70</strong>
-                    <span>Guests in flexible format.</span>
-                  </div>
-                </div>
-
-              
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block fade-section" id="opportunities" data-slide-label="Opportunities">
-          <div class="section-shell">
-            <div class="section-heading">
-              <span class="sub-kicker">Opportunities</span>
-              <h2>Three clear ways to convert attention into business.</h2>
-              <p>
-                Three commercial paths make the next conversation easy to advance.
-              </p>
-            </div>
-
-            <div class="opportunities-grid">
-              <article class="opportunity-card">
-                <small>Leasing</small>
-                <h3>Open a retail presence.</h3>
-                <p>
-                  For flagships, category leaders, and high-visibility pop-ups.
-                </p>
-                <ul>
-                  <li>Nearly 500 iconic stores in the current merchandising story</li>
-                  <li>More than 170 first-to-market launches</li>
-                  <li>No tax on clothing or shoes</li>
-                </ul>
-                <a class="btn-pill btn-pill--ghost" href="https://mallofamerica.com/leasing" target="_blank" rel="noreferrer">
-                  Start Leasing Conversation
-                </a>
-              </article>
-
-              <article class="opportunity-card">
-                <small>Sponsorship</small>
-                <h3>Own attention across the property.</h3>
-                <p>
-                  Activate through signage, integrated programs, experiences, and event-linked content.
-                </p>
-                <ul>
-                  <li>Reach 32 million annual guests with exclusive program partnerships</li>
-                  <li>Build custom activations or tie into existing MOA events</li>
-                  <li>Mix on-property media with experiential moments</li>
-                </ul>
-                <a
-                  class="btn-pill btn-pill--ghost"
-                  href="https://www.mallofamerica.com/partnership-opportunities"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Explore Partnership Opportunities
-                </a>
-              </article>
-
-              <article class="opportunity-card">
-                <small>Events</small>
-                <h3>Book a venue inside a living destination.</h3>
-                <p>
-                  For producers and brands that want built-in traffic and venue inventory with spectacle.
-                </p>
-                <ul>
-                  <li>Private event spaces plus facilities for groups of 15 to 700</li>
-                  <li>Theme park buyouts, conventions, and sponsor hospitality</li>
-                  <li>Fast access to dining, attractions, and hotel inventory</li>
-                </ul>
-                <button class="btn-pill btn-pill--gold" type="button" data-open-module>Open Events Module</button>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- <section class="source-strip">
-          <div class="section-shell">
-            <div class="source-frame">
-              <p class="source-pill">Sources: MOA About, Leasing, Partnership Opportunities, Meetings + Events, and 2023 official press release.</p>
-              <p class="source-pill">Media: Publicly accessible Mall of America website images and sponsorship video assets.</p>
-              <p class="source-pill">Built for all devices sales presentations with non-linear section navigation and an expandable event module.</p>
-            </div>
-          </div>
-        </section> -->
-        </div>
-      </main>
-
-      <footer class="deck-footer">
-        <div class="section-shell">
-          <div class="deck-footer__inner">
-            <div class="deck-footer__brand-block">
-              <span class="deck-footer__brand">Mall of America</span>
-              <p class="deck-footer__copy">Retail, dining, entertainment, and event opportunities in one destination.</p>
-            </div>
-            <nav class="deck-footer__nav" aria-label="Footer">
-              <a href="#why">About</a>
-              <a href="#retail">Retail</a>
-              <a href="#events">Events</a>
-              <a href="#opportunities">Contact</a>
-            </nav>
-            <span class="deck-footer__meta">&copy; 2026 Mall of America</span>
-          </div>
-        </div>
-      </footer>
-
-      <aside class="events-module" id="eventsModule" aria-hidden="true">
-        <div class="events-module__backdrop"></div>
-        <div class="events-module__panel" role="dialog" aria-modal="true" aria-labelledby="events-module-title">
-          <div class="module-topbar">
-            <div>
-              <div class="module-label">Expandable Sub-Module</div>
-              <strong>Events Module</strong>
-            </div>
-            <button class="module-close" type="button" data-close-module aria-label="Close events module">&times;</button>
-          </div>
-
-          <div class="module-grid">
-            <div class="module-hero">
-              <video muted loop playsinline preload="none" poster="https://mallofamerica.com/sites/default/files/2025-08/barbie%20activation.jpg">
-                <source
-                  src="https://mallofamerica.com/sites/default/files/2025-08/moa_2024_sponsorship_sizzle%20%281080p%29_0.mp4"
-                  type="video/mp4"
-                />
-              </video>
-              <div class="module-heading">
-                <span class="sub-kicker">Bookable Inventory</span>
-                <h2 id="events-module-title">Venue-ready. Sponsor-ready. Shareable by design.</h2>
-                <p>
-                  This deeper layer turns the deck from a narrative site into a sales tool. Use it to show exact venue
-                  types, explain capacity, and guide a client from inspiration into inquiry.
-                </p>
-              </div>
-            </div>
-
-            <div class="module-side">
-              <article class="module-card">
-                <small>Select a Venue</small>
-                <div class="venue-selector">
-                  <button class="venue-button is-active" type="button" data-venue="parkview">
-                    <strong>Parkview</strong>
-                    <span>Flagship private event center above the park.</span>
-                  </button>
-                  <button class="venue-button" type="button" data-venue="executive">
-                    <strong>Executive Center</strong>
-                    <span>Flexible meeting format with multiple rooms.</span>
-                  </button>
-                  <button class="venue-button" type="button" data-venue="lounge">
-                    <strong>The Lounge</strong>
-                    <span>Casual premium space for intimate hosting.</span>
-                  </button>
-                </div>
-              </article>
-
-              <article class="module-card">
-                <small>Audience Reach</small>
-                <ul>
-                  <li>32 million annual guests already moving through the destination.</li>
-                  <li>Existing event cadence means activations feel native, not bolted on.</li>
-                  <li>Hotels, airport access, dining, and attractions improve guest experience without extra logistics.</li>
-                </ul>
-              </article>
-            </div>
-          </div>
-
-          <div class="px-4 pb-4">
-            <article class="module-detail">
-              <div class="module-detail__top">
-                <div>
-                  <small data-detail-type>Private event flagship</small>
-                  <h3 data-detail-title>Parkview Meeting + Event Center</h3>
-                  <p data-detail-overview>
-                    Positioned in the southwest corner of Nickelodeon Universe, Parkview gives brands and promoters a
-                    premium box above the action with full A/V, private restrooms, and a balcony overlooking the park.
-                  </p>
-                </div>
-
-                <div class="module-stat">
-                  <span>Capacity</span>
-                  <strong data-detail-capacity>720 standing</strong>
-                </div>
-              </div>
-
-              <div class="module-detail__grid" data-detail-metrics>
-                <div class="metric-card">
-                  <small>Interior</small>
-                  <strong>3,000 sq ft</strong>
-                </div>
-                <div class="metric-card">
-                  <small>Balcony</small>
-                  <strong>1,000 sq ft</strong>
-                </div>
-                <div class="metric-card">
-                  <small>Banquet</small>
-                  <strong>272</strong>
-                </div>
-                <div class="metric-card">
-                  <small>Reception</small>
-                  <strong>720</strong>
-                </div>
-              </div>
-
-              <ul data-detail-list>
-                <li>720 standing reception capacity in the full room.</li>
-                <li>272 banquet seats in the interior room.</li>
-                <li>177 standing guests on the exterior balcony.</li>
-                <li>Built for launches, receptions, sponsor hospitality, and elevated private buyouts.</li>
-              </ul>
-
-              <div class="module-footer-cta">
-                <p>
-                  Best fit: launches, sponsor hospitality, conventions, media previews, executive receptions, and
-                  branded content shoots that need the surrounding energy of the destination.
-                </p>
-                <div class="d-flex flex-wrap gap-3">
-                  <span class="tag">Groups of 15-700</span>
-                  <span class="tag" data-detail-squarefeet>4,000 sq ft</span>
-                  <a
-                    class="btn-pill btn-pill--gold"
-                    href="https://www.mallofamerica.com/visit/meetings-events"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View Official Meetings Page
-                  </a>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </aside>
+<body>
+  <!-- Persistent UI Elements -->
+  <header class="deck-header">
+    <div class="brand-lockup" onclick="deck.goToSlide('hero')">
+      <img class="brand-mark" src="assets/img/logo-2.png" alt="MOA Logo" />
     </div>
+    <div class="header-actions">
+      <button class="btn-premium primary" onclick="deck.goToSlide('brand-projection')">Dominate The Space</button>
+    </div>
+  </header>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="assets/js/app.js"></script>
-  </body>
+  <nav class="deck-nav">
+    <ul>
+      <li class="nav-item active" onclick="deck.goToSlide('hero')" data-target="hero"><span>Overview</span></li>
+      <li class="nav-item" onclick="deck.goToSlide('hub')" data-target="hub"><span>The Ecosystem</span></li>
+      <li class="nav-item" onclick="deck.goToSlide('retail')" data-target="retail"><span>Retail Power</span></li>
+      <li class="nav-item" onclick="deck.goToSlide('luxury')" data-target="luxury"><span>Luxury Collection</span></li>
+      <li class="nav-item" onclick="deck.goToSlide('entertainment')" data-target="entertainment"><span>Entertainment</span></li>
+      <li class="nav-item" onclick="deck.goToSlide('events')" data-target="events"><span>Live Platform</span></li>
+      <li class="nav-item" onclick="deck.goToSlide('brand-projection')" data-target="brand-projection"><span class="highlight">Brand Domination</span></li>
+    </ul>
+  </nav>
+
+  <!-- Main Deck Container -->
+  <main id="deck-container">
+
+    <!-- SLIDE 1: HERO -->
+    <section class="slide active" id="hero">
+      <div class="slide-bg video-bg">
+        <video autoplay muted loop playsinline class="cinematic-video" poster="assets/img/retail-energy.jpg">
+          <source src="assets/video/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="bg-overlay"></div>
+        <div class="hero-svg-container">
+          <svg class="hero-tech-ring" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <circle class="ring-outer" cx="250" cy="250" r="230" fill="none" stroke="var(--gold-glow)" stroke-width="1" stroke-dasharray="4 8" />
+            <circle class="ring-inner" cx="250" cy="250" r="180" fill="none" stroke="var(--blue-glow)" stroke-width="2" stroke-dasharray="20 40 10 30" />
+            <path class="ring-accent" d="M 250 50 A 200 200 0 0 1 450 250" fill="none" stroke="var(--gold)" stroke-width="3" />
+            <path class="ring-accent-2" d="M 250 450 A 200 200 0 0 1 50 250" fill="none" stroke="var(--blue)" stroke-width="3" />
+            <circle class="ring-core" cx="250" cy="250" r="120" fill="none" stroke="var(--text-muted)" stroke-width="1" opacity="0.3" />
+            <line x1="250" y1="110" x2="250" y2="390" stroke="var(--glass-border)" stroke-width="1" />
+            <line x1="110" y1="250" x2="390" y2="250" stroke="var(--glass-border)" stroke-width="1" />
+          </svg>
+        </div>
+      </div>
+      <div class="slide-content align-center">
+        <div class="hero-text gsap-anim-up">
+          <span class="eyebrow">The Destination Engine</span>
+          <h1 class="glitch-text">Scale. Energy. Opportunity.</h1>
+          <p class="lead-text mt-3">32 million annual visits. One continuous commercial stage.<br />This is not a mall. It is a living, breathing economy.</p>
+          <button class="btn-premium primary mt-5 pulse" onclick="deck.goToSlide('hub')">Enter the Ecosystem</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: THE HUB (Interactive Map) -->
+    <section class="slide" id="hub">
+      <div class="slide-bg image-bg" style="background-image: url('assets/img/brand-map-ai.png');">
+        <div class="bg-overlay cyber-overlay"></div>
+      </div>
+      <div class="slide-content align-center">
+        <div class="hub-container gsap-anim-fade">
+          <div class="hub-header">
+            <span class="eyebrow text-glow">Interactive View</span>
+            <h2>A Masterplan of Demand</h2>
+            <p>Explore the forces that drive our 5.6M sq ft engine. Select a zone to dive deeper.</p>
+          </div>
+
+          <div class="hotspots">
+            <div class="hotspot" style="top: 30%; left: 20%;" onclick="deck.goToSlide('retail')">
+              <div class="hotspot-pulse-svg">
+                <svg viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="8" class="pulse-core" />
+                  <circle cx="25" cy="25" r="20" class="pulse-ring" />
+                </svg>
+              </div>
+              <div class="hotspot-label">Retail Power</div>
+            </div>
+            <div class="hotspot" style="top: 45%; left: 70%;" onclick="deck.goToSlide('luxury')">
+              <div class="hotspot-pulse-svg gold">
+                <svg viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="8" class="pulse-core" />
+                  <circle cx="25" cy="25" r="20" class="pulse-ring" />
+                </svg>
+              </div>
+              <div class="hotspot-label">Luxury Corridor</div>
+            </div>
+            <div class="hotspot" style="top: 65%; left: 40%;" onclick="deck.goToSlide('entertainment')">
+              <div class="hotspot-pulse-svg magenta">
+                <svg viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="8" class="pulse-core" />
+                  <circle cx="25" cy="25" r="20" class="pulse-ring" />
+                </svg>
+              </div>
+              <div class="hotspot-label">Entertainment Zone</div>
+            </div>
+            <div class="hotspot" style="top: 25%; left: 60%;" onclick="deck.goToSlide('events')">
+              <div class="hotspot-pulse-svg blue">
+                <svg viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="8" class="pulse-core" />
+                  <circle cx="25" cy="25" r="20" class="pulse-ring" />
+                </svg>
+              </div>
+              <div class="hotspot-label">Live Event Platform</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: RETAIL -->
+    <section class="slide" id="retail">
+      <div class="slide-bg image-bg cinematic-pan" style="background-image: url('assets/img/retail-energy.jpg');">
+        <div class="bg-overlay dark-overlay"></div>
+      </div>
+      <div class="slide-content layout-split">
+        <div class="split-left gsap-anim-slide-right">
+          <span class="eyebrow">Retail Power</span>
+          <h2>Where intent meets destination velocity.</h2>
+          <p>520 stores. 170+ first-to-market launches. We don't just capture local errands; we capture tourism, full-day stays, and emotional buying behavior.</p>
+
+          <div class="stats-grid mt-5">
+            <div class="stat-box glass-panel">
+              <div class="stat-num text-glow">32M</div>
+              <div class="stat-label">Annual Visitors</div>
+            </div>
+            <div class="stat-box glass-panel">
+              <div class="stat-num text-glow">$1B+</div>
+              <div class="stat-label">Economic Impact</div>
+            </div>
+            <div class="stat-box glass-panel">
+              <div class="stat-num text-glow">0%</div>
+              <div class="stat-label">Tax on Clothing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: LUXURY -->
+    <section class="slide" id="luxury">
+      <div class="slide-bg image-bg cinematic-pan" style="background-image: url('assets/img/luxury-ai.png');">
+        <div class="bg-overlay dark-overlay"></div>
+      </div>
+      <div class="slide-content layout-split reverse">
+        <div class="split-right"></div>
+        <div class="split-left gsap-anim-slide-left">
+          <div class="glass-panel p-5">
+            <span class="eyebrow gold">The Luxury Collection</span>
+            <h2>Mass reach. <br />Premium context.</h2>
+            <p>Destination-scale visibility without losing the dramatic, hospitable exclusivity your brand demands. The architecture of aspiration.</p>
+            <ul class="premium-list mt-4">
+              <li><span class="gold mr-2">✦</span> VIP Airport Adjacency</li>
+              <li><span class="gold mr-2">✦</span> High-Net-Worth Tourism Draw</li>
+              <li><span class="gold mr-2">✦</span> Curated Boutique Ecosystem</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: ENTERTAINMENT -->
+    <section class="slide" id="entertainment">
+      <div class="slide-bg image-bg cinematic-pan" style="background-image: url('assets/img/entertainment.jpg');">
+        <div class="bg-overlay neon-overlay"></div>
+      </div>
+      <div class="slide-content layout-split">
+        <div class="split-left gsap-anim-slide-right">
+          <div class="glass-panel p-5">
+            <span class="eyebrow magenta">The Difference Maker</span>
+            <h2>The Gravity of Spectacle.</h2>
+            <p>A 7-acre indoor theme park. 30+ rides. This is the difference between a place people visit and a place people *experience*.</p>
+            <div class="interaction-hint mt-5">
+              <button class="btn-premium neon" onclick="deck.goToSlide('hub')">Back to Ecosystem Map</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: EVENTS -->
+    <section class="slide" id="events">
+      <div class="slide-bg image-bg cinematic-pan" style="background-image: url('assets/img/Concerts.jpg');">
+        <div class="bg-overlay dark-overlay"></div>
+      </div>
+      <div class="slide-content align-center">
+        <div class="glass-panel wide gsap-anim-up">
+          <span class="eyebrow blue">Live Event Platform</span>
+          <h2>A living stage for your brand.</h2>
+          <p class="lead-text mx-auto" style="max-width: 600px;">Concerts, conventions, launches, and celebrity moments. 300+ events a year. We don't just host—we amplify.</p>
+          <div class="stats-grid mt-5">
+            <div class="stat-box">
+              <div class="stat-num blue">700+</div>
+              <div class="stat-label">Max Capacity Spaces</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num blue">300+</div>
+              <div class="stat-label">Annual Events</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num blue">Infinite</div>
+              <div class="stat-label">Sponsor Potential</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: BRAND PROJECTION (The "I Need to Be Here" Moment) -->
+    <section class="slide" id="brand-projection">
+      <div class="slide-bg brand-domination-bg">
+        <div id="particles-js"></div>
+        <div class="domination-overlay"></div>
+      </div>
+      
+      <div class="slide-content projection-module">
+        <div class="projection-workspace">
+          
+          <!-- Left Panel: Selector -->
+          <div class="domination-controls gsap-anim-slide-right">
+            <span class="eyebrow highlight mb-2">The Ultimate Takeover</span>
+            <h2 class="mb-4">Command The Space.</h2>
+            <p class="text-muted mb-5">Select your industry vertical to simulate a full-scale brand domination of our 32M visitor ecosystem.</p>
+            
+            <div class="vertical-selector">
+              <button class="vertical-btn" data-vertical="fashion">
+                <span class="v-icon">👗</span> Premium Fashion
+              </button>
+              <button class="vertical-btn" data-vertical="tech">
+                <span class="v-icon">📱</span> Consumer Tech
+              </button>
+              <button class="vertical-btn" data-vertical="dining">
+                <span class="v-icon">🍷</span> Experiential F&B
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Panel: The Cinematic Reveal -->
+          <div class="domination-stage glass-panel gsap-anim-slide-left">
+            
+            <div class="stage-idle" id="stage-idle">
+              <div class="idle-icon">⚡</div>
+              <h3>Awaiting Simulation</h3>
+              <p>Select a vertical to project your brand's impact.</p>
+            </div>
+
+            <div class="stage-loading" id="stage-loading" style="display: none;">
+              <div class="hologram-spinner"></div>
+              <p class="text-glow highlight tracking-wide">CALIBRATING ECOSYSTEM PROJECTION...</p>
+            </div>
+
+            <div class="stage-active" id="stage-active" style="display: none;">
+              <div class="domination-hero">
+                <div class="takeover-badge">BRAND TAKEOVER SUCCESSFUL</div>
+                <h3 id="res-title" class="text-glow gold massive-title">Fashion & Apparel</h3>
+                <p id="res-desc" class="lead-text mt-3">Our ecosystem amplifies premium fashion through high-dwell tourism and adjacent luxury co-tenants.</p>
+              </div>
+              
+              <div class="live-metrics">
+                <div class="metric-card metric-anim">
+                  <div class="value" id="res-traffic">12.5M</div>
+                  <div class="label">Targeted Footfall</div>
+                </div>
+                <div class="metric-card metric-anim">
+                  <div class="value" id="res-dwell">+45m</div>
+                  <div class="label">Dwell Premium</div>
+                </div>
+              </div>
+              
+              <div class="fomo-card metric-anim mt-4">
+                <div class="fomo-header">
+                  <span class="gold mr-2">✦</span> The "I Need To Be Here" Reality
+                </div>
+                <div class="fomo-body" id="res-fomo">
+                  The synergy of adjacent luxury and tax-free shopping creates an unparalleled conversion engine. If you aren't here, your competitor is capturing this intent.
+                </div>
+              </div>
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="assets/js/app.js"></script>
+</body>
 </html>
